@@ -8,7 +8,7 @@
 #define BWL_PO (ROOM_WIDTH -2)
 
 int main(void) {
-    int soup = 0, relationship = 2, foot, cat = 1, a;
+    int soup = 0, relationship = 2, foot, cat = 1, a, cp = 0, mood = 3;
     printf("         /\\_/\\   \n");
     printf("   /\\   / o o \\  \n");
     printf("  //\\\\  \\~(*)~/  \n");
@@ -28,6 +28,24 @@ int main(void) {
 
         printf("==================== 현재상태===================\n");
         printf("현재까지 만든 수프: %d개\n", soup);
+        printf("CP: %d 포인트\n", cp);
+        printf("쫀떡이의 기분(0~3): %d\n", mood);
+
+        switch (mood) {
+        case 0:
+            printf("기분이 매우 나쁩니다.\n");
+            break;
+        case 1:
+            printf("심심해합니다.\n");
+            break;
+        case 2:
+            printf("식빵을 굽습니다.\n");
+            break;
+        case 3:
+            printf("골골송을 부릅니다.\n");
+            break;
+        }
+
         printf("집사와의 관계(0~4): %d\n", relationship);
         switch (relationship) {
         case 0:
@@ -178,4 +196,3 @@ int main(void) {
     }
     return 0;
 }
-
