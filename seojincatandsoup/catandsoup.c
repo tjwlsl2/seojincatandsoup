@@ -24,7 +24,7 @@ int main(void) {
     srand((unsigned int)time(NULL));
 
     while (1) {
-
+        int dice = rand() % 6 + 1;
 
         printf("==================== 현재상태===================\n");
         printf("현재까지 만든 수프: %d개\n", soup);
@@ -67,22 +67,21 @@ int main(void) {
         printf("==================================================\n");
 
         Sleep(500); //0.5초대기
-        foot = cat;
-        printf("쫀떡 이동: 집사와 친밀할수록 냄비 쪽으로 갈 확률이 높아집니다.\n");
-        printf("주사위 눈이 %d이상이면 냄비 쪽으로 이동합니다.\n", 6 - relationship);
-        printf("주사위를 굴립니다. 또르륵...\n");
 
-        int dice;
-        dice = rand() % 6 + 1;
+        foot = cat;
+
+        printf("6-%d: 주사위 눈이 %d이하이면 그냥 기분이 나빠집니다.\n", relationship, 6 - relationship);
+        printf("주사위를 굴립니다. 또르륵...\n");
         printf("%d이(가) 나왔습니다.\n", dice);
 
-        if (dice >= 6 - relationship) {
-            if (cat < BWL_PO)
-                cat++;
-            printf("냄비 쪽으로 움직입니다.\n");
-        }
-        else if (cat != HME_POS) {
-            cat--;
+        if (dice <= 6 - relationship) {
+            printf("쫀떡의 기분이 나빠집니다: ");
+            if (mood > 0) {
+                mood--;
+                printf("%d->%d\n", mood + 1, mood);
+            }
+            else
+                printf("0->0\n");
         }
 
         if (cat == BWL_PO) {
