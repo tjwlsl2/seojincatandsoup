@@ -8,7 +8,8 @@
 #define BWL_PO (ROOM_WIDTH -2)
 
 int main(void) {
-    int soup = 0, relationship = 2, foot, cat = 1, a, cp = 0, mood = 3;
+    int soup = 0, relationship = 2, foot, cat = 1, a, cp = 0, mood = 3,
+        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down;
     printf("         /\\_/\\   \n");
     printf("   /\\   / o o \\  \n");
     printf("  //\\\\  \\~(*)~/  \n");
@@ -84,6 +85,71 @@ int main(void) {
                 printf("0->0\n");
         }
 
+        switch (mood) {
+        case 0:
+            printf("기분이 매우나쁜 쫀떡은(는) 집으로향합니다.\n");
+            cat--;
+            break;
+        case 1:
+            printf("쫀떡은(는) 심심해서 스크래처쪽으로 이동합니다.\n");
+            if (scratcher != 0 && tower != 0) {
+                if (cat != scratcher && cat != tower) {
+                    if (cat - scratcher > 0 && cat - tower > 0)
+                        cat--;
+                    else if (cat - scratcher < 0 && cat - tower < 0)
+                        cat++;
+                    else {
+                        if (tower > scratcher) {
+                            up = tower;
+                            down = scratcher;
+                        }
+                        else {
+                            up = scratcher;
+                            down = tower;
+                        }
+
+                        up = up - cat;
+                        down = cat - down;
+
+                        if (up > down)
+                            cat++;
+                        else if (down > up)
+                            cat--;
+                        else
+                            cat++;
+                    }
+                }
+
+            }
+            else if (tower != 0) {
+                if (cat > tower)
+                    cat--;
+                else if (cat < tower)
+                    cat++;
+                printf("쫀떡은(는) 심심해서 타워쪽으로 이동합니다.\n");
+            }
+            else if (scratcher != 0) {
+                if (cat > scratcher)
+                    cat--;
+                else if (cat < scratcher)
+                    cat++;
+                printf("쫀떡은(는) 심심해서 스크래처쪽으로 이동합니다.\n");
+            }
+            else {
+                printf("놀거리가 없어서 기분이 매우 나빠집니다.\n");
+                if (mood > 0)
+                    mood--;
+            }
+            break;
+        case 2:
+            printf("쫀떡은(는) 기분좋게 식빵을 굽고있습니다.\n");
+            break;
+        case 3:
+            printf("쫀떡은(는) 골골송을 부르며 수프를 만들러갑니다.\n");
+            cat++;
+            break;
+        }
+
         if (cat == BWL_PO) {
             soup++;
             dice = rand() % 3 + 1;
@@ -100,6 +166,7 @@ int main(void) {
             }
             printf("현재까지 만든 수프: %d\n", soup);
         }
+
         if (cat == HME_POS) {
             printf("쫀떡은 자신의 집에서 편안함을 느낍니다.\n");
         }
