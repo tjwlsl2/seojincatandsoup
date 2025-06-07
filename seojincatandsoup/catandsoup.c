@@ -167,9 +167,35 @@ int main(void) {
             printf("현재까지 만든 수프: %d\n", soup);
         }
 
-        if (cat == HME_POS) {
-            printf("쫀떡은 자신의 집에서 편안함을 느낍니다.\n");
+        if (cat == HME_POS && cat == foot) {
+            printf("쫀떡은(는) 자신의 집에서 편안함을 느낍니다.\n");
+            if (mood < 3)
+                mood++;
         }
+
+        if (cat == scratcher) {
+            printf("쫀떡은(는) 스크래처를 긁고 놀았습니다.\n");
+            if (mood == 3)
+                printf("기분이 조금 좋아졌습니다: %d->%d\n", mood, mood);
+            else {
+                mood++;
+                printf("기분이 조금 좋아졌습니다: %d->%d\n", mood - 1, mood);
+            }
+        }
+
+        if (cat == tower) {
+            printf("쫀떡은(는) 캣타워를 뛰어다닙니다.\n");
+            if (mood > 1) {
+                printf("기분이 제법 좋아졌습니다: %d->3\n", mood);
+                mood = 3;
+            }
+            else {
+                mood += 2;
+                printf("기분이제법좋아졌습니다: %d->%d\n", mood - 2, mood);
+            }
+        }
+
+        Sleep(500);
 
         for (int i = 0; i < ROOM_WIDTH; i++) {
             printf("#");
