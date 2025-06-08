@@ -6,9 +6,10 @@
 #define ROOM_WIDTH 10
 #define HME_POS 1
 #define BWL_PO (ROOM_WIDTH -2)
+#define ROOM_HEIGHT 4
 
 int main(void) {
-    int soup = 0, relationship = 2, foot, cat = 1, a, cp = 0, mood = 3,
+    int soup = 0, relationship = 2, foot, cat = 1, interaction, cp = 0, feeling = 3,
         scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down;
     printf("         /\\_/\\   \n");
     printf("   /\\   / o o \\  \n");
@@ -30,9 +31,9 @@ int main(void) {
         printf("==================== 현재상태===================\n");
         printf("현재까지 만든 수프: %d개\n", soup);
         printf("CP: %d 포인트\n", cp);
-        printf("쫀떡이의 기분(0~3): %d\n", mood);
+        printf("쫀떡이의 기분(0~3): %d\n", feeling);
 
-        switch (mood) {
+        switch (feeling) {
         case 0:
             printf("기분이 매우 나쁩니다.\n");
             break;
@@ -77,15 +78,15 @@ int main(void) {
 
         if (dice <= 6 - relationship) {
             printf("쫀떡의 기분이 나빠집니다: ");
-            if (mood > 0) {
-                mood--;
-                printf("%d->%d\n", mood + 1, mood);
+            if (feeling > 0) {
+                feeling--;
+                printf("%d->%d\n", feeling + 1, feeling);
             }
             else
                 printf("0->0\n");
         }
 
-        switch (mood) {
+        switch (feeling) {
         case 0:
             printf("기분이 매우나쁜 쫀떡은(는) 집으로향합니다.\n");
             cat--;
@@ -137,8 +138,8 @@ int main(void) {
             }
             else {
                 printf("놀거리가 없어서 기분이 매우 나빠집니다.\n");
-                if (mood > 0)
-                    mood--;
+                if (feeling > 0)
+                    feeling--;
             }
             break;
         case 2:
@@ -169,86 +170,67 @@ int main(void) {
 
         if (cat == HME_POS && cat == foot) {
             printf("쫀떡은(는) 자신의 집에서 편안함을 느낍니다.\n");
-            if (mood < 3)
-                mood++;
+            if (feeling < 3)
+                feeling++;
         }
 
         if (cat == scratcher) {
             printf("쫀떡은(는) 스크래처를 긁고 놀았습니다.\n");
-            if (mood == 3)
-                printf("기분이 조금 좋아졌습니다: %d->%d\n", mood, mood);
+            if (feeling == 3)
+                printf("기분이 조금 좋아졌습니다: %d->%d\n", feeling, feeling);
             else {
-                mood++;
-                printf("기분이 조금 좋아졌습니다: %d->%d\n", mood - 1, mood);
+                feeling++;
+                printf("기분이 조금 좋아졌습니다: %d->%d\n", feeling - 1, feeling);
             }
         }
 
         if (cat == tower) {
             printf("쫀떡은(는) 캣타워를 뛰어다닙니다.\n");
-            if (mood > 1) {
-                printf("기분이 제법 좋아졌습니다: %d->3\n", mood);
-                mood = 3;
+            if (feeling > 1) {
+                printf("기분이 제법 좋아졌습니다: %d->3\n", feeling);
+                feeling = 3;
             }
             else {
-                mood += 2;
-                printf("기분이제법좋아졌습니다: %d->%d\n", mood - 2, mood);
+                feeling += 2;
+                printf("기분이제법좋아졌습니다: %d->%d\n", feeling - 2, feeling);
             }
         }
 
         Sleep(500);
 
-        for (int i = 0; i < ROOM_WIDTH; i++) {
-            printf("#");
+        for (int i = 0; i < ROOM_HEIGHT; i++) {
+            for (int j = 0; j < ROOM_WIDTH; j++) {
+                if (i == 0 || j == 0 || i == ROOM_HEIGHT - 1 || j == ROOM_WIDTH - 1)
+                    printf("#");
+                else if (i == 1 && j == HME_POS)
+                    printf("H");
+                else if (i == 1 && j == BWL_PO)
+                    printf("B");
+                else if (i == 2 && j == cat)
+                    printf("C");
+                else if (scratcher == j && i == 1)
+                    printf("S");
+                else if (foot != cat && i == 2 && j == foot)
+                    printf(".");
+                else if (tower == j && i == 1)
+                    printf("T");
+                else
+                    printf(" ");
+            }
+            printf("\n");
         }
-        printf("\n");
 
-        for (int i = 0; i < ROOM_WIDTH; i++) {
-            if (i == 0 || i == ROOM_WIDTH - 1) {
-                printf("#");
-            }
-            else if (i == 1) {
-                printf("H");
-            }
-            else if (i == BWL_PO) {
-                printf("B");
-            }
-            else {
-                printf(" ");
-            }
-        }
-        printf("\n");
-
-        for (int i = 0; i < ROOM_WIDTH; i++) {
-            if (i == 0 || i == ROOM_WIDTH - 1) {
-                printf("#");
-            }
-            else if (i == cat) {
-                printf("C");
-            }
-            else if (i == foot) {
-                printf(".");
-            }
-            else {
-                printf(" ");
-            }
-        }
-        printf("\n");
-        for (int i = 0; i < ROOM_WIDTH; i++) {
-            printf("#");
-        }
-        printf("\n");
-
-        Sleep(500); //0.5초대기
+        Sleep(500);
 
         printf("어떤 상호작용을 하시겠습니까?   0. 아무것도 하지 않음   1. 긁어주기\n>> ");
-        scanf_s("%d", &a);
+        scanf_s("%d", &interaction);
 
-        while (a != 0 && a != 1) {
+        while (interaction != 0 && interaction != 1) {
             printf(">>");
-            scanf_s("%d", &a);
+            scanf_s("%d", &interaction);
         }
 
-        switch (a) {
+        switch (interaction) {
         case 0:
             printf("아무것도 하지 않음\n");
             printf("4/6의 확률로 친밀도가 떨어집니다.\n");
