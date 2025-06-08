@@ -325,6 +325,12 @@ int main(void) {
         }
         printf("현재 친밀도 : %d\n", relationship);
 
+        cp += max(0, feeling - 1) + relationship;
+        printf("쫀떡의 기분(0~3): %d\n", feeling);
+        printf("집사와의 친밀도(0~4): %d\n", relationship);
+        printf("쫀떡의 기분과 친밀도에 따라서 CP가 %d포인트 생산 되었습니다.\n", max(0, feeling - 1) + relationship);
+        printf("보유 CP: %d포인트\n", cp);
+
         Sleep(2500);
         system("cls");
     }
