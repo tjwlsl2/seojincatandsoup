@@ -240,6 +240,91 @@ int main(void) {
             scanf_s("%d", &interaction);
         } while (interaction < 0 || interaction > toy);
 
+        if (interaction == 2) {
+            if (lazer == 2)
+                printf("레이저 포인터로 쫀떡이와 놀아 주었습니다.\n");
+            else
+                printf("장난감 쥐로 쫀떡이와 놀아 주었습니다.\n");
+        }
+
+        if (interaction == 3) {
+            if (lazer == 3)
+                printf("레이저 포인터로 쫀떡이와 놀아 주었습니다.\n");
+            else
+                printf("장난감 쥐로 쫀떡이와 놀아 주었습니다.\n");
+        }
+
+        if (interaction == 0) {
+            if (feeling == 0)
+                printf("쫀떡의 기분이 기분이 나빠졌습니다: %d->%d\n", feeling, feeling);
+            else {
+                printf("쫀떡의 기분이 기분이 나빠졌습니다: %d->%d\n", feeling, feeling - 1);
+                feeling--;
+            }
+            printf("친밀도는 주사위를 던져서 눈이 5이하이면 1감소\n");
+            printf("주사위를 돌립니다. 또르륵...\n");
+
+            dice = rand() % 6 + 1;
+
+            printf("%d이(가) 나왔습니다.\n", dice);
+
+            if (dice <= 5) {
+                printf("집사와의 관계가 나빠집니다.\n");
+                if (relationship > 0)
+                    relationship--;
+            }
+            else
+                printf("집사와의 관계가 나빠지지 않았습니다.\n");
+
+        }
+        else if (interaction == 1) {
+            printf("쫀떡의 기분은 그대로 입니다: %d\n", feeling);
+            printf("주사위를 던져서 5이상이면 친밀도가 증가합니다.\n");
+
+            dice = rand() % 6 + 1;
+
+            printf("%d이(가) 나왔습니다.\n", dice);
+
+            if (dice >= 5)
+                if (relationship <= 3)
+                    relationship++;
+        }
+
+        else if ((interaction == 2 && lazer == 2) || (interaction == 3 && lazer == 3)) {
+            printf("레이저 포인터로 쫀떡와 신나게 놀아 주었습니다.\n");
+
+            if (feeling >= 2) {
+                printf("쫀떡의 기분이 꽤 좋아졌습니다: %d->3\n", feeling);
+                feeling = 3;
+            }
+            else {
+                printf("쫀떡의 기분이 꽤 좋아졌습니다: %d->%d\n", feeling, feeling + 2);
+                feeling += 2;
+            }
+            printf("주사위를 던져서 2이상이면 친밀도가 1증가합니다.\n");
+            dice = rand() % 6 + 1;
+            if (dice >= 2)
+                if (relationship <= 3)
+                    relationship++;
+
+        }
+        else {
+            printf("장난감 쥐로 쫀떡와 놀아 주었습니다.\n");
+            if (feeling == 3)
+                printf("쫀떡의 기분이 조금 좋아졌습니다: %d->3\n", feeling);
+            else {
+                printf("쫀떡의 기분이 조금 좋아졌습니다: %d->%d\n", feeling, feeling + 1);
+                feeling += 1;
+            }
+            printf("주사위를 던져서 4이상이면 친밀도가 1증가합니다.\n");
+            dice = rand() % 6 + 1;
+            if (dice >= 4)
+                if (relationship <= 3)
+                    relationship++;
+
+        }
+        printf("현재 친밀도 : %d\n", relationship);
+
         Sleep(2500);
         system("cls");
     }
