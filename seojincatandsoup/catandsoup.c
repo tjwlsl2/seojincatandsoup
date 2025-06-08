@@ -10,7 +10,7 @@
 
 int main(void) {
     int soup = 0, relationship = 2, foot, cat = 1, interaction, cp = 0, feeling = 3,
-        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down;
+        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down, toy = 1;
     printf("         /\\_/\\   \n");
     printf("   /\\   / o o \\  \n");
     printf("  //\\\\  \\~(*)~/  \n");
@@ -222,49 +222,24 @@ int main(void) {
 
         Sleep(500);
 
-        printf("어떤 상호작용을 하시겠습니까?   0. 아무것도 하지 않음   1. 긁어주기\n>> ");
-        scanf_s("%d", &interaction);
+        printf("어떤 상호작용을 하시겠습니까?\n   0. 아무것도 하지 않음\n   1. 긁어 주기\n");
 
-        while (interaction != 0 && interaction != 1) {
+        if (mouse != 0 && lazer != 0) {
+            if (lazer == 2)
+                printf("   2. 레이저 포인터로 놀아 주기\n   3. 장난감 쥐로 놀아 주기\n");
+            else
+                printf("   2. 장난감 쥐로 놀아 주기\n   3. 레이저 포인터로 놀아 주기\n");
+        }
+        else if (mouse == 0 && lazer == 2)
+            printf("   2. 레이저 포인터로 놀아 주기\n");
+        else if (mouse == 2 && lazer == 0)
+            printf("   2. 장난감 쥐로 놀아 주기\n");
+
+        do {
             printf(">>");
             scanf_s("%d", &interaction);
-        }
+        } while (interaction < 0 || interaction > toy);
 
-        switch (interaction) {
-        case 0:
-            printf("아무것도 하지 않음\n");
-            printf("4/6의 확률로 친밀도가 떨어집니다.\n");
-            printf("주사위를 돌립니다. 또르륵...\n");
-            dice = rand() % 6 + 1;
-            printf("%d가 나왔습니다.\n", dice);
-            if (dice <= 4) {
-                printf("친밀도가 떨어집니다.\n");
-                if (relationship > 0) {
-                    relationship--;
-                }
-            }
-            else {
-                printf("다행이도 친밀도가 떨어지지 않았습니다.\n");
-            }
-            break;
-        case 1:
-            printf("쫀떡의 턱을 긁어주었습니다.\n");
-            printf("2/6확률로 친밀도가 높아집니다.\n");
-            printf("주사위를 돌립니다. 또르륵...\n");
-            dice = rand() % 6 + 1;
-            printf("%d가 나왔습니다.\n", dice);
-            if (dice >= 5) {
-                printf("친밀도가 높아집니다\n");
-                if (relationship <= 3) {
-                    relationship++;
-                }
-            }
-            else {
-                printf("친밀도는 그대로입니다.\n");
-            }
-            break;
-        }
-        printf("현재 친밀도 : %d\n", relationship);
         Sleep(2500);
         system("cls");
     }
