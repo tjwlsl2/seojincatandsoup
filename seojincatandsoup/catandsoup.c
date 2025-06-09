@@ -68,6 +68,7 @@ int main(void) {
         }
         printf("==================================================\n");
 
+        printf("\n");
         Sleep(500); //0.5초대기
 
         foot = cat;
@@ -112,9 +113,9 @@ int main(void) {
                         up = up - cat;
                         down = cat - down;
 
-                        if (up > down)
+                        if (up < down)
                             cat++;
-                        else if (down > up)
+                        else if (down < up)
                             cat--;
                         else
                             cat++;
@@ -196,6 +197,7 @@ int main(void) {
             }
         }
 
+        printf("\n");
         Sleep(500);
 
         for (int i = 0; i < ROOM_HEIGHT; i++) {
@@ -220,6 +222,7 @@ int main(void) {
             printf("\n");
         }
 
+        printf("\n");
         Sleep(500);
 
         printf("어떤 상호작용을 하시겠습니까?\n   0. 아무것도 하지 않음\n   1. 긁어 주기\n");
@@ -324,6 +327,8 @@ int main(void) {
 
         }
         printf("현재 친밀도 : %d\n", relationship);
+
+        printf("\n");
 
         cp += max(0, feeling - 1) + relationship;
         printf("쫀떡의 기분(0~3): %d\n", feeling);
