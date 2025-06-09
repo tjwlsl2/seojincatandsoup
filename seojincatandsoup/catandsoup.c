@@ -10,7 +10,7 @@
 
 int main(void) {
     int soup = 0, relationship = 2, foot, cat = 1, interaction, cp = 0, feeling = 3,
-        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down, toy = 1, count = 0;
+        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down, toy = 1, count = 0, quest = 0, answer = 0;
     printf("         /\\_/\\   \n");
     printf("   /\\   / o o \\  \n");
     printf("  //\\\\  \\~(*)~/  \n");
@@ -26,6 +26,7 @@ int main(void) {
     srand((unsigned int)time(NULL));
 
     while (1) {
+        quest++;
         int dice = rand() % 6 + 1;
 
         printf("==================== 현재상태===================\n");
@@ -67,6 +68,21 @@ int main(void) {
             break;
         }
         printf("==================================================\n");
+
+        if (quest == 3) {
+            printf("돌발 퀘스트 발생\n");
+            printf("한남대학교의 개교년도는??!! (숫자만)\n");
+            scanf_s("%d", &answer);
+            if (answer == 1956) {
+                printf("오예! 정답입니다.\n");
+                printf("CP가 1 올라갑니다.\n");
+                cp++;
+            }
+            else {
+                printf("아이고... 오답입니다.\n");
+                printf("정답은 1956이였습니다.\n");
+            }
+        }
 
         printf("\n");
         Sleep(500); //0.5초대기
@@ -294,7 +310,7 @@ int main(void) {
         }
 
         else if ((interaction == 2 && lazer == 2) || (interaction == 3 && lazer == 3)) {
-            printf("레이저 포인터로 쫀떡와 신나게 놀아 주었습니다.\n");
+            printf("레이저 포인터로 쫀떡이와 신나게 놀아 주었습니다.\n");
 
             if (feeling >= 2) {
                 printf("쫀떡의 기분이 꽤 좋아졌습니다: %d->3\n", feeling);
