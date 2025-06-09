@@ -113,9 +113,9 @@ int main(void) {
                         up = up - cat;
                         down = cat - down;
 
-                        if (up < down)
+                        if (up > down)
                             cat++;
-                        else if (down < up)
+                        else if (down > up)
                             cat--;
                         else
                             cat++;
@@ -169,7 +169,7 @@ int main(void) {
             printf("현재까지 만든 수프: %d\n", soup);
         }
 
-        if (cat == HME_POS && cat == foot) {
+        if (cat == HME_POS && cat == foot && count != 0) {
             printf("쫀떡은(는) 자신의 집에서 편안함을 느낍니다.\n");
             if (feeling < 3)
                 feeling++;
