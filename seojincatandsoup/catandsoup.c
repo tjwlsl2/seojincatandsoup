@@ -10,7 +10,7 @@
 
 int main(void) {
     int soup = 0, relationship = 2, foot, cat = 1, interaction, cp = 0, feeling = 3,
-        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down, toy = 1;
+        scratcher = 0, tower = 0, mouse = 0, lazer = 0, up, down, toy = 1, count = 0;
     printf("         /\\_/\\   \n");
     printf("   /\\   / o o \\  \n");
     printf("  //\\\\  \\~(*)~/  \n");
@@ -336,6 +336,120 @@ int main(void) {
         printf("쫀떡의 기분과 친밀도에 따라서 CP가 %d포인트 생산 되었습니다.\n", max(0, feeling - 1) + relationship);
         printf("보유 CP: %d포인트\n", cp);
 
+        printf("\n");
+
+        printf("상점에서 물건을 살 수 있습니다.\n");
+        printf("어떤 물건을 구매할까요?\n");
+        printf("    0. 아무것도 사지 않는다.\n");
+
+        printf("    1. 장난감 쥐: 1CP");
+        if (mouse != 0)
+            printf(" (품절)");
+        printf("\n");
+
+        printf("    2. 레이저 포인터: 2CP");
+        if (lazer != 0)
+            printf(" (품절)");
+        printf("\n");
+
+        printf("    3. 스크래처: 4CP");
+        if (scratcher != 0)
+            printf(" (품절)");
+        printf("\n");
+
+        printf("    4. 캣 타워: 6CP");
+        if (tower != 0)
+            printf(" (품절)");
+        printf("\n");
+
+        count = 0;
+        while (count == 0) {
+            do {
+                printf(">>");
+                scanf_s("%d", &interaction);
+            } while (interaction < 0 || interaction > 4);
+
+            if (interaction == 0)
+                count = 1;
+            else if (interaction == 1) {
+                if (mouse != 0)
+                    printf("장난감 쥐를 이미 구매했습니다.\n");
+                else if (cp < 1)
+                    printf("CP가 부족합니다.\n");
+                else if (lazer == 0) {
+                    mouse = 2;
+                    cp--;
+                    printf("장난감 쥐를 구매했습니다.\n");
+                    printf("보유 CP %d포인트\n", cp);
+                    toy++;
+                    count = 1;
+                }
+                else {
+                    mouse = 3;
+                    cp--;
+                    printf("장난감 쥐를 구매했습니다.\n");
+                    printf("보유 CP %d포인트\n", cp);
+                    toy++;
+                    count = 1;
+                }
+
+            }
+            else if (interaction == 2) {
+                if (lazer != 0)
+                    printf("레이저 포인터를 이미 구매했습니다.\n");
+                else if (cp < 2)
+                    printf("CP가 부족합니다.\n");
+                else if (mouse == 0) {
+                    lazer = 2;
+                    cp -= 2;
+                    printf("레이저 포인터를 구매했습니다.\n");
+                    printf("보유 CP %d포인트\n", cp);
+                    toy++;
+                    count = 1;
+                }
+                else {
+                    lazer = 3;
+                    cp -= 2;
+                    printf("레이저 포인터를 구매했습니다.\n");
+                    printf("보유 CP %d포인트\n", cp);
+                    toy++;
+                    count = 1;
+                }
+                break;
+            }
+            else if (interaction == 3) {
+                if (scratcher != 0)
+                    printf("스크래처를 이미 구매했습니다.\n");
+                else if (cp < 4)
+                    printf("CP가 부족합니다.\n");
+                else if (scratcher == 0) {
+                    cp -= 4;
+                    printf("스크래처를 구매했습니다.\n");
+                    printf("보유 CP %d포인트\n", cp);
+
+                    while (scratcher == 0 || scratcher == tower || scratcher == BWL_PO || scratcher == HME_POS || scratcher == ROOM_WIDTH)
+                        scratcher = rand() % (ROOM_WIDTH - 4) + 2;
+
+                    count = 1;
+                }
+            }
+            else if (interaction == 4) {
+                if (tower != 0)
+                    printf("캣 타워를 이미 구매했습니다.\n");
+                else if (cp < 6)
+                    printf("CP가 부족합니다.\n");
+                else if (tower == 0) {
+                    cp -= 6;
+                    printf("캣 타워를 구매했습니다.\n");
+                    printf("보유 CP %d포인트\n", cp);
+
+                    while (tower == 0 || tower == scratcher || tower == BWL_PO || tower == HME_POS || tower == ROOM_WIDTH)
+                        tower = rand() % (ROOM_WIDTH - 4) + 2;
+
+                    count = 1;
+                }
+            }
+        }
         Sleep(2500);
         system("cls");
     }
